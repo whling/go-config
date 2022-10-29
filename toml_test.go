@@ -153,7 +153,7 @@ func TestToml_AccessArrayAndAccessMap(t *testing.T) {
 	if fruitPhysicalTtMap == nil || len(fruitPhysicalTtMap) != 2 {
 		t.Fatal()
 	}
-	if fruitPhysicalTtMap["color"].Value() != "red" {
+	if s, ok := fruitPhysicalTtMap["color"].Value().(string); ok && s != "red" {
 		t.Fatal()
 	}
 
@@ -161,7 +161,7 @@ func TestToml_AccessArrayAndAccessMap(t *testing.T) {
 	if fruitVarietyArray == nil || len(fruitVarietyArray) != 2 {
 		t.Fatal()
 	}
-	if fruitVarietyArray[0].Access("name").Value() != "red delicious" {
+	if s, ok := fruitVarietyArray[0].Access("name").Value().(string); ok && s != "red delicious" {
 		t.Fatal()
 	}
 }
