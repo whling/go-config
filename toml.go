@@ -64,15 +64,15 @@ func (t *Toml) AccessArray(key string) []Node {
 	}
 	values := tree.GetPath(strings.Split(key, Delimiter))
 
-	var nodes []Node
-
 	switch v := values.(type) {
 	case []*toml.Tree:
+		nodes := make([]Node, 0, len(v))
 		for _, item := range v {
 			nodes = append(nodes, &Toml{value: item})
 		}
 		return nodes
 	case []interface{}:
+		nodes := make([]Node, 0, len(v))
 		for _, item := range v {
 			nodes = append(nodes, &Toml{value: item})
 		}

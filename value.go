@@ -51,6 +51,10 @@ func (t *TomlValue) Str(key string, def string) string {
 	return def
 }
 
+func (t *TomlValue) Int(key string, def int) int {
+	return int(t.Int64(key, int64(def)))
+}
+
 func (t *TomlValue) Int64(key string, def int64) int64 {
 	if key != "" {
 		if n := t.Access(key); n != nil {
@@ -111,6 +115,21 @@ func (t *TomlValue) StrArray(key string) []string {
 				}
 			}
 			return r
+		}
+	}
+	return nil
+}
+
+func (t *TomlValue) IntArray(key string) []int {
+	if key != "" {
+		if array := t.AccessArray(key); array != nil {
+			intSlice := make([]int, 0, len(array))
+			for _, elem := range array {
+				if v, ok := elem.Value().(int64); ok {
+					intSlice = append(intSlice, int(v))
+				}
+			}
+			return intSlice
 		}
 	}
 	return nil

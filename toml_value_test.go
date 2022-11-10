@@ -79,6 +79,11 @@ func TestValue_ValueArray(t *testing.T) {
 		t.Fatal(v)
 	}
 
+	integerKey1 := testTomlValue.Int("integer.key1", 0)
+	if integerKey1 != 99 {
+		t.Fatal()
+	}
+
 	if testTomlValue.BoolArray("boolean_array.key2") != nil {
 		t.Fatal()
 	}
@@ -94,6 +99,17 @@ func TestValue_ValueArray(t *testing.T) {
 		}
 		if tv, ok := arr[2].Value().(string); !ok || tv != "banana" {
 			t.Fatal(tv)
+		}
+	}
+
+	if intArray := testTomlValue.IntArray("int_array.key"); intArray == nil {
+		t.Fatal()
+	} else {
+		if len(intArray) == 0 {
+			t.Fatal()
+		}
+		if intArray[2] != 5 {
+			t.Fatal()
 		}
 	}
 }

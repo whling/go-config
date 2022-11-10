@@ -29,12 +29,14 @@ type Value interface {
 
 	Bool(key string, def bool) bool
 	Str(key string, def string) string
+	Int(key string, def int) int
 	Int64(key string, def int64) int64
 	Float64(key string, def float64) float64
 	Duration(key string, def time.Duration) time.Duration
 
 	BoolArray(string) []bool
 	StrArray(string) []string
+	IntArray(string) []int
 	Int64Array(string) []int64
 	Float64Array(string) []float64
 	DurationArray(string) []time.Duration
